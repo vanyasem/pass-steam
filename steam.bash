@@ -17,8 +17,6 @@
 #
 PYSTEAM=$(pip list | grep -F steam)
 
-die() { echo "$*" 1>&2 ; exit 1; }
-
 cmd_steam_usage() {
   cat <<-_EOF
 Usage:
@@ -26,7 +24,7 @@ Usage:
     $PROGRAM steam [code] [--clip,-c] pass-name
         Generate a Steam Guard code and optionally put it on the clipboard.
         If put on the clipboard, it will be cleared in $CLIP_TIME seconds.
-        
+
 More information may be found in the pass-steam(1) man page.
 _EOF
   exit 0
@@ -34,7 +32,45 @@ _EOF
 
 cmd_steam_code() {
   [[ -z "$PYSTEAM" ]] && die "Failed to generate Steam Guard code: python-steam is not installed."
-  exit 0
+
+  local opts clip=0
+  opts="$($GETOPT -o c -l clip -n "$PROGRAM" -- "$@")"
+  local err=$?
+  eval set -- "$opts"
+  while true; do case $1 in
+    -c|--clip) clip=1; shift ;;
+    --) shift; break ;;
+  esac done
+
+  [[ $err -ne 0 || $# -ne 1 ]] && die "Usage: $PROGRAM $COMMAND [--clip,-c] pass-name"
+
+  local path="${1%/}"
+  local passfile="$PREFIX/$path.gpg"
+  check_sneaky_paths "$path"
+  [[ ! -f $passfile ]] && die "Passfile not found"
+
+  contents=$($GPG -d "${GPG_OPTS[@]}" "$passfile")
+  while read -r line; do
+    if [[ "$line" == {\'shared_secret\':* ]]; then
+      local secret="$line"
+      break
+    fi
+  done <<< "$contents"
+
+  local out=$(python -c '\
+    import sys; \
+    import steam.guard as guard; \
+    import ast; \
+    sa = guard.SteamAuthenticator(ast.literal_eval(sys.argv[1])); \
+    print(sa.get_code())\
+  ' "$secret")
+  [[ -z $out ]] && die "Failed to generate Steam Guard code for $path"
+
+  if [[ $clip -ne 0 ]]; then
+    clip "$out" "Steam Guard code for $path"
+  else
+    echo "$out"
+  fi
 }
 
 case "$1" in
