@@ -22,3 +22,16 @@ utility with the
 .B steam
 command for adding Steam Guard secrets, generating Steam Guard codes, and displaying secret keys
 URIs using the standard \fIsteamauth://\fP scheme.
+
+If no COMMAND is specified, COMMAND defaults to \fBcode\fP.
+
+.SH COMMANDS
+
+.TP
+\fBsteam code\fP [ \fI--clip\fP, \fI-c\fP ] \fIpass-name\fP
+
+Generate and print a Steam Guard code from the secret key stored in \fIpass-name\fP
+using \fBoathtool\fP(1). If \fI--clip\fP or \fI-c\fP is specified, do not print
+the code but instead copy it to the clipboard using \fBxclip\fP(1)
+and then restore the clipboard after 45 (or \fIPASSWORD_STORE_CLIP_TIME\fP)
+seconds. This command is alternatively named \fBshow\fP.
