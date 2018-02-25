@@ -15,6 +15,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+PYSTEAM=$(pip list | grep -F steam)
+
+die() { echo "$*" 1>&2 ; exit 1; }
 
 cmd_steam_usage() {
   cat <<-_EOF
@@ -30,6 +33,7 @@ _EOF
 }
 
 cmd_steam_code() {
+  [[ -z "$PYSTEAM" ]] && die "Failed to generate Steam Guard code: python-steam is not installed."
   exit 0
 }
 
