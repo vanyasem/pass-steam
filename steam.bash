@@ -15,3 +15,27 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+
+cmd_steam_usage() {
+  cat <<-_EOF
+Usage:
+
+    $PROGRAM steam [code] [--clip,-c] pass-name
+        Generate a Steam Guard code and optionally put it on the clipboard.
+        If put on the clipboard, it will be cleared in $CLIP_TIME seconds.
+        
+More information may be found in the pass-steam(1) man page.
+_EOF
+  exit 0
+}
+
+cmd_steam_code() {
+  exit 0
+}
+
+case "$1" in
+  help|--help|-h) shift; cmd_steam_usage "$@" ;;
+  code|show)      shift; cmd_steam_code "$@" ;;
+  *)                     cmd_steam_code "$@" ;;
+esac
+exit 0
