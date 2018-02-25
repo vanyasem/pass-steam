@@ -21,7 +21,7 @@ More information may be found in the pass-steam(1) man page.
 `pass-steam` is (not yet) available in AUR:
 
 ```
-pacaur -S pass-steam
+pacaur -S pass-steam-git
 ```
 
 ## Requirements
