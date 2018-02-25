@@ -17,5 +17,17 @@
 ##    along with this program. If not, see <http://www.gnu.org/licenses/>.
 ##
 
+import sys
+
 import steam.guard as guard
 import steam.webauth as wa
+
+
+def code():
+    print('boilerplate')
+
+if sys.argv[1] == 'code':
+    code()
+elif sys.argv[1] == '':
+    pass
+  
