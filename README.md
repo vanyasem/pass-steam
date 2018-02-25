@@ -16,9 +16,17 @@ More information may be found in the pass-steam(1) man page.
 
 ## Installation
 
+### From git
+
+```
+git clone https://github.com/tadfisher/pass-otp
+cd pass-otp
+sudo make install
+```
+
 ### Arch Linux
 
-`pass-steam` is (not yet) available in AUR:
+`pass-steam` is available in AUR:
 
 ```
 pacaur -S pass-steam-git
