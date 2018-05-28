@@ -25,14 +25,15 @@ More information may be found in the pass-steam(1) man page.
 ### From git
 
 ```
-git clone https://github.com/tadfisher/pass-otp
-cd pass-otp
-sudo make install
+git clone https://github.com/vanyasem/pass-steam
+cd pass-steam
+(GNU/Linux) sudo make install
+(MacOS) make install PREFIX=/usr/local
 ```
 
 ### Arch Linux
 
-`pass-steam` is available in AUR:
+`pass-steam` is [available in AUR](https://aur.archlinux.org/packages/pass-steam-git):
 
 ```
 pacaur -S pass-steam-git
