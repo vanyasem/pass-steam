@@ -7,17 +7,50 @@ A [pass](https://www.passwordstore.org/) extension for managing Steam Guard code
 ```
 Usage:
 
-    $PROGRAM steam [code] [--clip,-c] pass-name
+    pass steam [code] [--clip,-c] pass-name
         Generate a Steam Guard code and optionally put it on the clipboard.
         If put on the clipboard, it will be cleared in $CLIP_TIME seconds.
         
-    $PROGRAM steam insert [--force,-f] [--echo,-e] [pass-name]
+    pass steam insert [--force,-f] [--echo,-e] [pass-name]
         Prompt for a new Steam Guard secret. If pass-name is not supplied, use the
         account nickname. Optionally, echo the input. Prompt before overwriting
         existing password unless forced. This command accepts input from stdin.
         Change your current Steam Guard mode to Email and attach a phone number.
         
 More information may be found in the pass-steam(1) man page.
+```
+
+## Examples
+
+Prompt for a Steam Guard token, hiding input:
+
+```
+$ pass steam insert
+Enter Steam username for this account: 
+Enter Steam password for this account:
+
+Enter Email code and press Enter. Wait for an SMS, enter the code, and press Enter again
+
+Insert into Steam/boilerplate? [y/N] y
+```
+
+Prompt for a Steam Guard, echoing input:
+
+```
+$ pass steam insert -e
+Enter Steam username for this account: 
+Enter Steam password for this account: visiblePassword
+
+Enter Email code and press Enter. Wait for an SMS, enter the code, and press Enter again
+
+Insert into Steam/boilerplate? [y/N] y
+```
+
+Generate a Steam Guard code using this token:
+
+```
+$ pass steam Steam/boilerplate
+ABCDE
 ```
 
 ## Installation
