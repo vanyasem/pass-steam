@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # pass steam - Password Store Extension (https://www.passwordstore.org/)
-# Copyright (c) 2018 Ivan Semkin
+# Copyright (c) 2018-2020 Ivan Semkin
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
